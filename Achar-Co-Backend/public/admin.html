@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Achar & Co. | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <script src="/admin/admin.js" defer></script>
+</head>
+<body>
+  <main id="loginView" class="login-shell">
+    <section class="login-card">
+      <a class="wordmark" href="/"><span class="brand-mark">a.</span><span>achar <i>&</i> co.<small>Kitchen administration</small></span></a>
+      <p class="eyebrow">PRIVATE ADMIN ACCESS</p>
+      <h1>Welcome back</h1>
+      <p class="muted">Sign in to manage your pickle catalogue and customer enquiries.</p>
+      <form id="loginForm">
+        <label>Email address<input id="loginEmail" type="email" autocomplete="username" required placeholder="admin@acharandco.com"></label>
+        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Your admin password"></label>
+        <button class="button button-primary" type="submit">Sign in <span>→</span></button>
+        <p id="loginError" class="form-error" role="alert"></p>
+      </form>
+      <p class="login-foot">Admin credentials are set in your backend environment variables.</p>
+    </section>
+    <div class="login-art" aria-hidden="true"><span>Kerala<br>heritage,<br>jar by jar.</span><small>Handcrafted with care · Achar & Co.</small></div>
+  </main>
+
+  <div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="wordmark" href="/"><span class="brand-mark">a.</span><span>achar <i>&</i> co.<small>ADMIN CONSOLE</small></span></a>
+      <p class="nav-caption">WORKSPACE</p>
+      <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+      <button class="nav-item" data-view="products"><span>▦</span> Products <b id="productNavCount">0</b></button>
+      <button class="nav-item" data-view="enquiries"><span>✉</span> Enquiries <b id="newEnquiryCount">0</b></button>
+      <button class="nav-item" data-view="orders"><span>▣</span> Orders <b id="orderNavCount">0</b></button>
+      <div class="sidebar-bottom"><span class="status-dot"></span><span>Store is connected</span><button id="logoutButton">Sign out</button></div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar"><div><span class="eyebrow">ACHAR & CO. / ADMIN</span><h1 id="pageTitle">Overview</h1></div><div class="admin-profile"><span class="avatar">A</span><span id="adminEmail">Admin</span></div></header>
+      <div id="notice" class="notice" role="status"></div>
+
+      <section id="overviewView" class="view">
+        <div class="welcome-row"><div><p class="eyebrow">YOUR KITCHEN AT A GLANCE</p><h2>Namaskaram 👋</h2><p class="muted">Manage the products customers see and keep track of incoming messages.</p></div><button class="button button-primary" data-go="products">Manage products <span>→</span></button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><span>ACTIVE PRODUCTS</span><strong id="activeProductsStat">—</strong><small>Visible in your website catalogue</small><i>▦</i></article>
+          <article class="stat-card"><span>OUT OF STOCK</span><strong id="stockProductsStat">—</strong><small>Products currently unavailable</small><i>◷</i></article>
+          <article class="stat-card"><span>NEW ENQUIRIES</span><strong id="newEnquiriesStat">—</strong><small>Waiting for your response</small><i>✉</i></article>
+          <article class="stat-card"><span>ORDERS TO PROCESS</span><strong id="openOrdersStat">—</strong><small>Received, making or shipping</small><i>▣</i></article>
+        </div>
+        <div class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">LATEST MESSAGES</p><h3>Recent enquiries</h3></div><button class="text-button" data-go="enquiries">View inbox →</button></div>
+          <div id="recentEnquiries" class="enquiry-list"></div>
+        </div>
+        <div class="note-card"><span>✦</span><div><b>Changes flow to your website</b><p>Product edits are saved to the database. The public catalogue refreshes from the API and keeps your existing WhatsApp order flow.</p></div></div>
+      </section>
+
+      <section id="productsView" class="view hidden">
+        <div class="toolbar"><div><p class="muted">Add, edit, publish, or pause products from your live catalogue.</p></div><button id="addProductButton" class="button button-primary">＋ Add product</button></div>
+        <div class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">PRODUCT CATALOGUE</p><h3>All products <span id="productCountLabel" class="count-pill"></span></h3></div><input id="productSearch" class="search" type="search" placeholder="Search products"></div>
+          <div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>FROM</th><th>AVAILABILITY</th><th></th></tr></thead><tbody id="productsTable"></tbody></table></div>
+          <div id="emptyProducts" class="empty-state hidden">No matching products found.</div>
+        </div>
+      </section>
+
+      <section id="enquiriesView" class="view hidden">
+        <div class="toolbar"><p class="muted">Messages submitted through the website contact form.</p><select id="enquiryFilter" class="select"><option value="">All messages</option><option value="new">New</option><option value="read">Read</option><option value="replied">Replied</option><option value="archived">Archived</option></select></div>
+        <div id="enquiriesList" class="panel enquiry-list inbox-list"></div>
+      </section>
+
+      <section id="ordersView" class="view hidden">
+        <div class="toolbar"><p class="muted">Customer orders submitted from the website. Update a status and save it to publish the tracking update.</p><div class="order-toolbar"><select id="orderFilter" class="select"><option value="">All orders</option><option value="received">Received</option><option value="making">Making</option><option value="making_done">Making done</option><option value="shipping">Shipping</option><option value="delivered">Delivered</option><option value="cancelled">Cancelled</option></select><button id="refreshOrdersButton" class="button button-quiet">Refresh</button></div></div>
+        <div id="ordersList" class="orders-list"></div>
+      </section>
+    </section>
+  </div>
+
+  <dialog id="productDialog" class="product-dialog">
+    <form id="productForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">PRODUCT DETAILS</p><h2 id="dialogTitle">Add a product</h2></div><button type="button" class="icon-button" id="closeDialog" aria-label="Close">×</button></div>
+      <input id="productId" type="hidden">
+      <div class="form-grid">
+        <label>Product name *<input id="productName" maxlength="120" required></label>
+        <label>URL slug *<input id="productSlug" maxlength="90" required placeholder="mango-pickle"></label>
+        <label>Category *<select id="productCategory" required><option>Vegetarian</option><option>Meat</option><option>Seafood</option></select></label>
+        <label>Badge<input id="productBadge" maxlength="80" placeholder="BESTSELLER"></label>
+        <label class="span-two">Short description<textarea id="productShortDesc" rows="2" maxlength="500"></textarea></label>
+        <label class="span-two">Product image URL<input id="productImage" maxlength="1000" placeholder="/images/mango-pickle-card.jpg"></label>
+        <fieldset class="span-two price-fields"><legend>Pack prices (₹)</legend><label>250g<input id="price250" type="number" min="0" step="1"></label><label>500g<input id="price500" type="number" min="0" step="1"></label><label>1kg<input id="price1kg" type="number" min="0" step="1"></label></fieldset>
+        <label class="checkbox-label"><input id="productOutOfStock" type="checkbox"> Out of stock</label>
+        <label class="checkbox-label"><input id="productActive" type="checkbox" checked> Show on website</label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="button button-quiet" id="cancelDialog">Cancel</button><button type="submit" class="button button-primary">Save product <span>→</span></button></div>
+      <p id="productFormError" class="form-error"></p>
+    </form>
+  </dialog>
+</body>
+</html>

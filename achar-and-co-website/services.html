@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Achar & Co. services: Individual doorstep orders, bulk Sadhya wedding orders, curated festive gift hampers, restaurant catering supply, and bespoke custom pickle batches across Kerala.">
+  <title>Services & Deliveries | Achar & Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="/config.js"></script>
+  <script src="/main.js"></script>
+  <script src="/frontend-bridge.js"></script>
+  <script src="/frontend-order-flow.js"></script>
+</head>
+
+<body>
+
+  <!-- Kerala-wide Delivery Announcement Bar -->
+  <div class="announcement-bar">
+    <span class="badge-kerala">Kerala-Wide Delivery</span>
+    <span>Authentic small-batch pickles delivered to doorsteps across all 14 districts of Kerala.</span>
+    <a href="contact.html#delivery">Check Delivery Info &rarr;</a>
+  </div>
+
+  <!-- Sticky Premium Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo" aria-label="Achar and Co. Homepage">
+        <div class="brand-symbol">a.</div>
+        <div class="brand-text">
+          <span class="brand-name">achar <span>&</span> co.</span>
+          <span class="brand-sub">Kerala Heritage Pickles</span>
+        </div>
+      </a>
+
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="services.html" class="nav-link active">Services & Deliveries</a>
+        <a href="reviews.html" class="nav-link">Reviews</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="header-track-btn" id="headerTrackOrderBtn" onclick="openTrackOrderModal()" aria-label="Track Your Order">
+          <span>📦</span>
+          <span>Track Order</span>
+        </button>
+        <button class="bag-btn" id="openBagBtn" aria-label="Open Cart Bag" onclick="typeof openCart === 'function' ? openCart() : openOrderModalForBag()">
+          <span>Bag</span>
+          <span class="bag-badge" id="bagCountBadge">0</span>
+        </button>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Services Hero Banner (Matching Cream Kerala Heritage Style) -->
+    <section class="services-hero-section">
+      <div class="container">
+        <div class="section-header text-center" style="max-width: 820px; margin: 0 auto;">
+          <span class="eyebrow">SERVICES &amp; DELIVERIES</span>
+          <h1 class="services-main-heading">Services &amp; Deliveries</h1>
+          <div class="brass-divider" aria-hidden="true">✦ ✦ ✦</div>
+          <p class="services-main-desc">
+            Pick a jar for your table, put together a gift, or get in touch about a bulk order.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Card Grid (5 Core Services in Responsive Grid) -->
+    <section class="services-grid-wrapper">
+      <div class="container">
+        <div class="services-card-grid" id="servicesGrid">
+          <!-- Card 1: Retail Orders -->
+          <article class="service-card-item" id="serviceRetail">
+            <div class="service-card-top">
+              <div class="service-card-icon-wrap" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="7" width="14" height="15" rx="3" />
+                  <path d="M7 7V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3" />
+                  <line x1="4" y1="7" x2="20" y2="7" />
+                  <circle cx="12" cy="14" r="2.5" />
+                </svg>
+              </div>
+              <h3 class="service-card-title">Retail Orders</h3>
+              <p class="service-card-desc">
+                Browse individual pickle jars and the pack sizes listed in the current catalog.
+              </p>
+            </div>
+            <div class="service-card-bottom">
+              <a href="products.html" class="btn-service-action btn-heritage-primary" id="btnRetailOrders">
+                <span>Shop Pickles</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2: Family-Size Packs -->
+          <article class="service-card-item" id="serviceFamilyPacks">
+            <div class="service-card-top">
+              <div class="service-card-icon-wrap" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="9" width="10" height="13" rx="2" />
+                  <path d="M5 9V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
+                  <rect x="11" y="5" width="10" height="17" rx="2" />
+                  <path d="M13 5V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                </svg>
+              </div>
+              <h3 class="service-card-title">Family-Size Packs</h3>
+              <p class="service-card-desc">
+                Highlight larger packs for households and gatherings where those sizes are available.
+              </p>
+            </div>
+            <div class="service-card-bottom">
+              <a href="products.html" class="btn-service-action btn-heritage-primary" id="btnFamilyPacks">
+                <span>Browse Pack Sizes</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3: Gifting Hampers -->
+          <article class="service-card-item" id="serviceGifting">
+            <div class="service-card-top">
+              <div class="service-card-icon-wrap" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 12 20 22 4 22 4 12" />
+                  <rect x="2" y="7" width="20" height="5" />
+                  <line x1="12" y1="22" x2="12" y2="7" />
+                  <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                  <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                </svg>
+              </div>
+              <h3 class="service-card-title">Gifting Hampers</h3>
+              <p class="service-card-desc">
+                Help customers put together a pickle trio for Onam, Vishu, or a gift.
+              </p>
+            </div>
+            <div class="service-card-bottom">
+              <a href="products.html#combo-builder" class="btn-service-action btn-heritage-primary" id="btnGiftingCombo">
+                <span>Build a Combo</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 4: Bulk & Event Orders -->
+          <article class="service-card-item" id="serviceBulk">
+            <div class="service-card-top">
+              <div class="service-card-icon-wrap" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 11h16a1 1 0 0 1 1 1v1a7 7 0 0 1-7 7h-4a7 7 0 0 1-7-7v-1a1 1 0 0 1 1-1z" />
+                  <path d="M4 11l1-5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2l1 5" />
+                  <circle cx="12" cy="2" r="1" />
+                  <line x1="2" y1="13" x2="4" y2="13" />
+                  <line x1="20" y1="13" x2="22" y2="13" />
+                </svg>
+              </div>
+              <h3 class="service-card-title">Bulk &amp; Event Orders</h3>
+              <p class="service-card-desc">
+                Invite enquiries for weddings, sadya, catering, and corporate gifting.
+              </p>
+            </div>
+            <div class="service-card-bottom">
+              <a href="https://wa.me/919876543210?text=Hi%20Achar%20%26%20Co.!%20I'd%20like%20to%20enquire%20about%20a%20bulk%20pickle%20order.%20The%20event%20is%20%5Bevent%5D%2C%20the%20date%20is%20%5Bdate%5D%2C%20and%20I%20need%20about%20%5Bquantity%5D%20jars.%20Could%20you%20share%20the%20available%20options%3F" class="btn-service-action btn-heritage-wa" id="btnBulkEnquiry" target="_blank" rel="noopener">
+                <span aria-hidden="true">💬</span>
+                <span>Enquire on WhatsApp</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 5: Home Delivery -->
+          <article class="service-card-item" id="serviceDelivery">
+            <div class="service-card-top">
+              <div class="service-card-icon-wrap" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="3" width="15" height="13" rx="1" />
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                  <circle cx="5.5" cy="18.5" r="2.5" />
+                  <circle cx="18.5" cy="18.5" r="2.5" />
+                </svg>
+              </div>
+              <h3 class="service-card-title">Home Delivery</h3>
+              <p class="service-card-desc">
+                Coverage across all 14 districts of Kerala. Because every order is prepared after confirmation, preparation time is considered before dispatch. Delivery information will be shared during order confirmation.
+              </p>
+            </div>
+            <div class="service-card-bottom">
+              <a href="https://wa.me/919876543210?text=Hi%20Achar%20%26%20Co.!%20Do%20you%20deliver%20to%20PIN%20code%20%5BPIN%20code%5D%3F%20Could%20you%20share%20the%20delivery%20charges%20and%20estimated%20time%3F" class="btn-service-action btn-heritage-wa" id="btnDeliveryCheck" target="_blank" rel="noopener">
+                <span aria-hidden="true">💬</span>
+                <span>Check Delivery</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Kerala-Wide Doorstep Delivery Information -->
+    <section class="section section-cream" id="delivery-details" style="border-top: 1px solid var(--cream-line);">
+      <div class="container">
+        <div class="section-header text-center" style="max-width: 820px; margin: 0 auto 36px;">
+          <span class="eyebrow">LOGISTICS &amp; COURIER COVERAGE</span>
+          <h2 style="font-family: var(--font-serif); font-size: clamp(26px, 3.2vw, 38px); color: var(--green-deep); margin-bottom: 12px;">Kerala-Wide Delivery Information</h2>
+          <div class="brass-divider" aria-hidden="true">✦ ✦ ✦</div>
+          <p style="color: var(--ink-muted); font-size: 15px; line-height: 1.7;">
+            Achar &amp; Co. is proud to serve families, foodies, and event caterers across all 14 revenue districts of Kerala. Here is how our doorstep courier system operates.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px;">
+          <div style="background: #fff; border: 1px solid var(--cream-line); border-radius: 8px; padding: 26px 22px; box-shadow: 0 4px 14px rgba(43, 24, 16, 0.04);">
+            <div style="font-size: 26px; color: var(--gold-turmeric); margin-bottom: 10px;">🗺️</div>
+            <h3 style="font-size: 18px; color: var(--green-deep); margin-bottom: 8px; font-family: var(--font-serif);">14 Districts Served</h3>
+            <p style="font-size: 13.5px; line-height: 1.7; color: var(--ink-muted); margin: 0;">
+              From the southern tip of Parassala (Thiruvananthapuram) to the northern coast of Manjeshwar (Kasaragod), we deliver through leading domestic express and parcel couriers.
+            </p>
+          </div>
+
+          <div style="background: #fff; border: 1px solid var(--cream-line); border-radius: 8px; padding: 26px 22px; box-shadow: 0 4px 14px rgba(43, 24, 16, 0.04);">
+            <div style="font-size: 26px; color: var(--gold-turmeric); margin-bottom: 10px;">⚖️</div>
+            <h3 style="font-size: 18px; color: var(--green-deep); margin-bottom: 8px; font-family: var(--font-serif);">Transparent Courier Charges</h3>
+            <p style="font-size: 13.5px; line-height: 1.7; color: var(--ink-muted); margin: 0;">
+              Because heavy glass jars require protective shock-absorbing cushioning, courier charges vary by parcel weight and specific pincode. We quote exact courier fees on WhatsApp before you pay.
+            </p>
+          </div>
+
+          <div style="background: #fff; border: 1px solid var(--cream-line); border-radius: 8px; padding: 26px 22px; box-shadow: 0 4px 14px rgba(43, 24, 16, 0.04);">
+            <div style="font-size: 26px; color: var(--gold-turmeric); margin-bottom: 10px;">⏱️</div>
+            <h3 style="font-size: 18px; color: var(--green-deep); margin-bottom: 8px; font-family: var(--font-serif);">Estimated Dispatch Timelines</h3>
+            <p style="font-size: 13.5px; line-height: 1.7; color: var(--ink-muted); margin: 0;">
+              Fresh batches are packed upon order confirmation. Most Kerala locations receive their parcel within 2 to 4 working days of dispatch. We share live courier tracking on WhatsApp.
+            </p>
+          </div>
+        </div>
+
+        <!-- 14 District Coverage Grid -->
+        <div style="background: #ffffff; border: 1px solid var(--cream-line); border-radius: 12px; padding: clamp(24px, 4vw, 36px); box-shadow: 0 4px 18px rgba(43, 24, 16, 0.04);">
+          <h3 style="font-size: 20px; color: var(--green-deep); margin-bottom: 6px; text-align: center; font-family: var(--font-serif);">Active Delivery Districts</h3>
+          <p style="font-size: 13.5px; color: var(--ink-muted); text-align: center; margin-bottom: 22px;">
+            Click on your district to enquiry via WhatsApp regarding delivery rates and next available dispatch:
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;" id="districtsGrid">
+            <!-- Populated via script from config.js -->
+          </div>
+
+          <div style="text-align: center; margin-top: 24px;">
+            <small style="color: var(--ink-light); font-size: 12px;">
+              * Note: Delivery to remote high-range taluks in Idukki and Wayanad may require an additional day depending on postal route access.
+            </small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Heritage Feature Strip (Matching Home Page) -->
+    <section class="heritage-feature-strip">
+      <div class="container">
+        <div class="feature-strip-grid">
+          <!-- Feature 1: Small batches -->
+          <div class="feature-strip-col">
+            <div class="feature-strip-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div class="feature-strip-text">
+              <h4 class="feature-strip-heading">Small batches</h4>
+              <p class="feature-strip-desc">Made in limited lots</p>
+            </div>
+          </div>
+
+          <!-- Feature 2: Kerala recipes -->
+          <div class="feature-strip-col">
+            <div class="feature-strip-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            </div>
+            <div class="feature-strip-text">
+              <h4 class="feature-strip-heading">Kerala recipes</h4>
+              <p class="feature-strip-desc">Inspired by home kitchens</p>
+            </div>
+          </div>
+
+          <!-- Feature 3: Pickles for gifting -->
+          <div class="feature-strip-col">
+            <div class="feature-strip-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                <rect x="2" y="7" width="20" height="5"></rect>
+                <line x1="12" y1="22" x2="12" y2="7"></line>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+              </svg>
+            </div>
+            <div class="feature-strip-text">
+              <h4 class="feature-strip-heading">Pickles for gifting</h4>
+              <p class="feature-strip-desc">Build your own trio</p>
+            </div>
+          </div>
+
+          <!-- Feature 4: Delivery enquiries -->
+          <div class="feature-strip-col">
+            <div class="feature-strip-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+            </div>
+            <div class="feature-strip-text">
+              <h4 class="feature-strip-heading">Delivery enquiries</h4>
+              <p class="feature-strip-desc">Ask about your pin code</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Imagery & Packaging Assurance -->
+    <section class="section section-cream">
+      <div class="container">
+        <div class="story-grid" style="align-items: center;">
+          <div class="story-image-wrap" style="position: relative;">
+            <img src="/images/mango-pickle-bottle.jpg" alt="Achar &amp; Co. Heritage Glass Pickle Jar" class="story-img-main" style="border-radius: 16px; box-shadow: var(--shadow-card); max-height: 420px; object-fit: cover;">
+          </div>
+          <div class="story-content">
+            <span class="eyebrow">HEIRLOOM CARE</span>
+            <h2>Food-Safe, Leak-Proof Packaging for Any Volume</h2>
+            <div class="brass-divider">✦ ✦ ✦</div>
+            <p>
+              Whether handling our collectible glass jars for festive gifting or food-grade 5kg/10kg bulk pails for large wedding sadhyas, every container is airtight, hermetically sealed, and packed to preserve the rich fragrance of cold-pressed gingelly oil and stone-ground spices.
+            </p>
+            <p>
+              We coordinate with trusted regional courier partners across all 14 districts of Kerala, ensuring prompt, intact arrival for your family table or celebration date.
+            </p>
+            <div style="margin-top: 24px; display: flex; gap: 14px; flex-wrap: wrap;">
+              <a href="products.html" class="btn btn-primary btn-sm">Explore All Pickles &rarr;</a>
+              <a href="contact.html#delivery" class="btn btn-outline btn-sm">Review Delivery Protocol</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order on WhatsApp Section (Replacing Services Form) -->
+    <section class="section" id="enquiry-whatsapp">
+      <div class="container container-narrow text-center">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <span class="eyebrow">CUSTOM OCCASIONS &amp; BULK DISPATCH</span>
+          <h2>Order on WhatsApp</h2>
+          <div class="brass-divider" aria-hidden="true">✦ ✦ ✦</div>
+          <p style="max-width: 620px; margin: 0 auto; font-size: 16px;">
+            Whether planning wedding sadhya catering, bespoke Onam hampers, or household family packs, message our kitchen directly. We discuss your flavour preferences, custom lot sizes, and delivery arrangements personally.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid var(--cream-line); border-radius: 20px; padding: 36px 28px; box-shadow: 0 12px 36px -8px rgba(18, 40, 26, 0.08); max-width: 540px; margin: 0 auto;">
+          <div style="font-size: 38px; margin-bottom: 12px;">💬</div>
+          <h3 style="font-family: var(--font-serif); font-size: 22px; color: var(--green-deep); margin-bottom: 8px;">Direct Kitchen Conversation</h3>
+          <p style="font-size: 14px; color: var(--ink-muted); margin-bottom: 24px; line-height: 1.6;">
+            Because every order is prepared after confirmation, preparation time is considered before dispatch. Delivery information will be shared during order confirmation.
+          </p>
+          <a href="https://wa.me/919876543210?text=Namaskaram%20Achar%20%26%20Co.!%20I%20would%20like%20to%20order%20pickles%20for%20our%20event%2Ffamily." class="btn btn-wa btn-full" id="btnServicesOrderWA" target="_blank" rel="noopener" style="padding: 14px 24px; font-size: 15px; font-weight: 700;">
+            <span>💬</span> Order on WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="brand-symbol">a.</div>
+            <div class="brand-text">
+              <span class="brand-name" style="color: #fff;">achar <span style="color: var(--gold-warm);">&amp;</span>
+                co.</span>
+              <span class="brand-sub" style="color: var(--gold-warm);">Kerala Heritage Pickles</span>
+            </div>
+          </a>
+          <p>
+            Honouring centuries of Kerala culinary wisdom. Handcrafted in small batches with cold-pressed gingelly oil,
+            whole rock salt, and authentic sun-curing.
+          </p>
+          <div style="font-size: 12px; color: var(--gold-warm); font-weight: 700;">
+            📍 Delivering Across All 14 Districts of Kerala
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Our Heritage</a></li>
+            <li><a href="products.html">Pickle Catalogue</a></li>
+            <li><a href="services.html">Services &amp; Deliveries</a></li>
+            <li><a href="reviews.html">Customer Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Pickles</h4>
+          <ul class="footer-links">
+            <li><a href="products.html">Cut Mango Pickle</a></li>
+            <li><a href="products.html">Vadukapuli Lemon</a></li>
+            <li><a href="products.html">Kanthari Mulaku</a></li>
+            <li><a href="products.html">Spiced Garlic</a></li>
+            <li><a href="products.html">Festive Inji Puli</a></li>
+            <li><a href="products.html">Coastal Prawn Pickle</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ordering &amp; Enquiries</h4>
+          <p style="font-size: 13px; color: #bfd0c4; margin-bottom: 14px;">
+            We take all orders directly on WhatsApp for personalized service:
+          </p>
+          <a href="https://wa.me/919876543210" class="btn btn-wa btn-sm" target="_blank" rel="noopener"
+            style="margin-bottom: 16px;">
+            <span>💬</span> Message On WhatsApp
+          </a>
+          <div style="font-size: 12px; color: #bfd0c4;">
+            <div>Phone: <span data-config-phone>+91 98765 43210 [Configurable]</span></div>
+            <div style="margin-top: 4px;">Email: <span data-config-email>namaskaram@acharandco.com [Configurable]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; <span id="currentYear"></span> Achar &amp; Co. All rights reserved. Handcrafted in Kerala.</div>
+        <div>
+          <span>Crafted with pure spices and Kerala tradition.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="#" class="floating-wa-btn" id="floatingWhatsApp" target="_blank" rel="noopener"
+    aria-label="Order Pickles on WhatsApp">
+    <div class="floating-wa-icon">💬</div>
+    <span>Order on WhatsApp</span>
+  </a>
+
+  <!-- Cart Drawer -->
+  <div class="drawer-backdrop" id="cartBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Bag">
+    <div class="drawer-header">
+      <h3>Your Bag <span id="drawerItemCount">(0)</span></h3>
+      <button class="drawer-close" id="closeBagBtn" aria-label="Close Bag">&times;</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-footer">
+      <div class="subtotal-row">
+        <span>Estimated Subtotal:</span>
+        <b id="cartSubtotalDisplay">₹0</b>
+      </div>
+      <button class="btn btn-wa btn-full" id="checkoutWhatsAppBtn">
+        <span>💬</span> Complete Order on WhatsApp
+      </button>
+      <small class="note">Courier charges to your Kerala district will be calculated on WhatsApp.</small>
+    </div>
+  </aside>
+
+  <!-- Page Specific Script for Services & Deliveries -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+      // Render 14 Districts
+      const districtsGrid = document.getElementById("districtsGrid");
+      if (districtsGrid && typeof ACHAR_CONFIG !== "undefined") {
+        districtsGrid.innerHTML = ACHAR_CONFIG.districts.map(d => {
+          const msg = `Namaskaram Achar & Co.! I am enquiring about pickle delivery availability and charges for ${d} district, Kerala.`;
+          const url = ACHAR_CONFIG.getWhatsAppUrl(msg);
+          return `
+            <a href="${url}" target="_blank" rel="noopener" style="background: #fdfaf4; border: 1px solid var(--cream-line); border-radius: 6px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--green-deep); transition: all 0.25s ease;">
+              <span>📍 ${d}</span>
+              <span style="font-size: 11.5px; color: var(--gold-turmeric); font-weight: 700;">Enquire &rarr;</span>
+            </a>
+          `;
+        }).join("");
+      }
+
+      // Ensure WhatsApp enquiry buttons are dynamically bound to ACHAR_CONFIG
+      if (typeof ACHAR_CONFIG !== "undefined") {
+        const msgBulk = "Hi Achar & Co.! I'd like to enquire about a bulk pickle order. The event is [event], the date is [date], and I need about [quantity] jars. Could you share the available options?";
+        const msgDelivery = "Hi Achar & Co.! Do you deliver to PIN code [PIN code]? Could you share the delivery charges and estimated time?";
+        const msgServices = "Namaskaram Achar & Co.! 🌶️ I would like to enquire about your services and deliveries.";
+
+        const btnBulk = document.getElementById("btnBulkEnquiry");
+        if (btnBulk) btnBulk.href = ACHAR_CONFIG.getWhatsAppUrl(msgBulk);
+
+        const btnDelivery = document.getElementById("btnDeliveryCheck");
+        if (btnDelivery) btnDelivery.href = ACHAR_CONFIG.getWhatsAppUrl(msgDelivery);
+
+        const btnServices = document.getElementById("btnServicesOrderWA");
+        if (btnServices) btnServices.href = ACHAR_CONFIG.getWhatsAppUrl(msgServices);
+      }
+    });
+  </script>
+</body>
+
+</html>

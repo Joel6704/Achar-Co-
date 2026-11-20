@@ -1,0 +1,137 @@
+<USER_REQUEST>
+# ACHAR & CO. — COMPLETE FRONTEND ORDERING SYSTEM WITH AUTOMATIC ORDER ID GENERATION
+
+## PROJECT OBJECTIVE
+
+Upgrade my existing Achar & Co. pickle website with a complete frontend-only ordering experience.
+
+Implement:
+
+1. Order Now buttons for all pickle products.
+2. Add to Bag functionality.
+3. Weight selection up to 3 KG.
+4. Floating shopping bag with item counter.
+5. Shopping bag sidebar.
+6. One reusable customer order form.
+7. Pick Any Three combo ordering.
+8. Automatic unique Order ID generation.
+9. Order confirmation popup.
+10. Frontend-only order storage.
+11. Track Order interface.
+12. Responsive design and animations.
+
+## CRITICAL INSTRUCTIONS
+
+This is my existing website, not a new project.
+
+- Modify only the existing frontend.
+- Do not create a backend.
+- Do not create API endpoints.
+- Do not connect a database.
+- Do not use Supabase or Firebase.
+- Do not create or restore an admin dashboard.
+- Do not add payment gateways.
+- Do not redesign the website.
+- Do not change unrelated website content.
+- Do not change existing images, fonts, colors or animations unnecessarily.
+
+Preserve the existing premium Kerala heritage design, cream background, responsive layouts and all public website pages.
+
+---
+
+## 1. UPDATE ALL PICKLE PRODUCT CARDS
+
+Go to the existing Products page.
+
+Update every pickle product card.
+
+Replace all existing ordering button labels:
+
+- "Order to WhatsApp" → "Order Now"
+- "Order on WhatsApp" → "Order Now"
+- "WhatsApp Order" on individual product cards → "Order Now"
+
+For seasonal products, preserve genuine availability restrictions. Show "Order Now" only when the product is available, without changing product availability data.
+
+Each product card must contain:
+
+- Existing product image
+- Pickle name
+- Product description
+- Existing price, if available
+- Weight selector
+- Order Now button
+- Add to Bag button
+
+Keep the existing design and layout.
+
+## 2. WEIGHT SELECTION FOR EVERY PICKLE
+
+Add a weight selector to every pickle product.
+
+Available options:
+
+- 250 g
+- 500 g
+
+<truncated 9278 bytes>
+ders.
+- No backend or API requests are made.
+- Existing design remains unchanged.
+- Mobile and desktop layouts work.
+- Production build completes successfully.
+
+## 14. GITHUB AND DEPLOYMENT
+
+Keep my existing GitHub repository:
+
+[https://github.com/Joel6704/achar-and-co-website](https://github.com/Joel6704/achar-and-co-website)
+
+Keep the existing Vercel frontend deployment configuration.
+
+Do not create a new repository.
+
+Do not push or deploy automatically.
+
+After completing the changes:
+
+- Run the production build.
+- Fix any frontend errors.
+- Show the list of changed files.
+- Explain the new frontend functionality.
+- Wait for my approval before pushing to GitHub.
+
+## FINAL GOAL
+
+Create a complete frontend-only ordering experience for the existing Achar & Co. website.
+
+Every pickle must support:
+
+- Order Now
+- Add to Bag
+- Weight Selection
+- Customer Details Form
+- Automatic Unique Order ID
+
+The shopping bag and Pick Any Three combo must use the same customer order form and Order ID generation system.
+
+Add a floating shopping bag, order confirmation popup and frontend-only Track Order interface.
+
+Do not create, connect or modify any backend, API, database, Supabase service or admin dashboard.
+
+Preserve the existing website design and functionality.
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-20T23:02:32+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\joelt\Downloads\achar-and-co-website\.git\COMMIT_EDITMSG (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 2
+Other open documents:
+- c:\Users\joelt\Downloads\achar-and-co-website\styles.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\vite.config.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\supabase\schema.sql (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\src\admin\pages\AdminProducts.jsx (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\src\admin\pages\AdminProductEditor.jsx (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

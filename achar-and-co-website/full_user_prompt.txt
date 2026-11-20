@@ -1,0 +1,482 @@
+<USER_REQUEST>
+# ACHAR & CO. — COMPLETE FRONTEND ORDERING SYSTEM WITH AUTOMATIC ORDER ID GENERATION
+
+## PROJECT OBJECTIVE
+
+Upgrade my existing Achar & Co. pickle website with a complete frontend-only ordering experience.
+
+Implement:
+
+1. Order Now buttons for all pickle products.
+2. Add to Bag functionality.
+3. Weight selection up to 3 KG.
+4. Floating shopping bag with item counter.
+5. Shopping bag sidebar.
+6. One reusable customer order form.
+7. Pick Any Three combo ordering.
+8. Automatic unique Order ID generation.
+9. Order confirmation popup.
+10. Frontend-only order storage.
+11. Track Order interface.
+12. Responsive design and animations.
+
+## CRITICAL INSTRUCTIONS
+
+This is my existing website, not a new project.
+
+- Modify only the existing frontend.
+- Do not create a backend.
+- Do not create API endpoints.
+- Do not connect a database.
+- Do not use Supabase or Firebase.
+- Do not create or restore an admin dashboard.
+- Do not add payment gateways.
+- Do not redesign the website.
+- Do not change unrelated website content.
+- Do not change existing images, fonts, colors or animations unnecessarily.
+
+Preserve the existing premium Kerala heritage design, cream background, responsive layouts and all public website pages.
+
+---
+
+## 1. UPDATE ALL PICKLE PRODUCT CARDS
+
+Go to the existing Products page.
+
+Update every pickle product card.
+
+Replace all existing ordering button labels:
+
+- "Order to WhatsApp" → "Order Now"
+- "Order on WhatsApp" → "Order Now"
+- "WhatsApp Order" on individual product cards → "Order Now"
+
+For seasonal products, preserve genuine availability restrictions. Show "Order Now" only when the product is available, without changing product availability data.
+
+Each product card must contain:
+
+- Existing product image
+- Pickle name
+- Product description
+- Existing price, if available
+- Weight selector
+- Order Now button
+- Add to Bag button
+
+Keep the existing design and layout.
+
+## 2. WEIGHT SELECTION FOR EVERY PICKLE
+
+Add a weight selector to every pickle product.
+
+Available options:
+
+- 250 g
+- 500 g
+- 1 KG
+- 1.5 KG
+- 2 KG
+- 2.5 KG
+- 3 KG
+
+Maximum selectable weight per product selection: 3 KG.
+
+Requirements:
+
+- Use a clean dropdown or attractive selection control.
+- Display the selected weight clearly.
+- Automatically transfer the selected weight to the Order Now form.
+- Automatically transfer the selected weight to the shopping bag.
+- Allow the customer to change the weight before submitting.
+- Do not invent product prices.
+- If weight-based prices are not configured, do not calculate fictional prices.
+
+## 3. ORDER NOW — CUSTOMER DETAILS FORM
+
+When the customer clicks Order Now on any pickle, open a professional popup form.
+
+Use one reusable form component for the entire website.
+
+### Customer Information
+
+Required fields:
+
+1. Full Name
+2. Phone Number
+3. Full Delivery Address
+
+### Order Information
+
+Required fields:
+
+4. Select Pickle
+5. Select Weight
+6. Quantity
+
+### Additional Information
+
+Optional field:
+
+7. Additional Notes / Feedback
+
+Buttons:
+
+- Cancel
+- Submit Order
+
+### Form Behavior
+
+- Automatically select the pickle clicked by the customer.
+- Automatically display the selected weight.
+- Allow customers to modify their pickle selection, weight and quantity.
+- Validate all required fields.
+- Validate Indian mobile numbers.
+- Display clear validation errors.
+- Prevent accidental duplicate submissions.
+- Use a clean and responsive popup design.
+- Reuse the same form for all ordering methods.
+
+## 4. ADD TO BAG FUNCTIONALITY
+
+Add an Add to Bag button to every pickle card.
+
+When the customer clicks Add to Bag:
+
+- Add the selected pickle and weight to a frontend shopping bag.
+- Show a small confirmation animation.
+- Display a floating shopping bag icon on the right side of the website.
+- Show the total number of bag items as a badge.
+- Update the badge immediately when items are added or removed.
+
+Example:
+
+If three items are added to the bag, display "3" on the shopping bag badge.
+
+The shopping bag icon must be visible and accessible on desktop and mobile.
+
+Use localStorage to preserve the shopping bag contents after refreshing the page.
+
+Do not open the customer details form immediately when adding a product to the bag. The form should open when the customer clicks Order Now from the bag.
+
+## 5. SHOPPING BAG SIDEBAR
+
+When the customer clicks the floating shopping bag icon, open a side drawer.
+
+Display:
+
+- Selected pickle image
+- Product name
+- Selected weight
+- Quantity
+- Existing price, if configured
+- Remove item button
+- Increase and decrease quantity controls
+- Order Now button
+
+Allow customers to:
+
+- View all added products.
+- Change quantities.
+- Remove products.
+- Continue shopping.
+- Proceed to the Order Now form.
+
+When the customer clicks Order Now inside the bag:
+
+- Open the same reusable customer order form.
+- Automatically include all selected bag items.
+- Display their weights and quantities.
+- Allow the customer to enter their name, phone number, address and additional notes.
+
+All selected bag items must be grouped into one order.
+
+## 6. PICK ANY THREE — COMBO SECTION
+
+Find the existing Pick Any Three combo section.
+
+Replace its existing WhatsApp ordering button with Order Now.
+
+Allow customers to select exactly three pickle varieties according to the existing combo rules.
+
+Add:
+
+- Order Now button
+- Add to Bag button
+
+### Combo Order Now
+
+When the customer clicks Order Now:
+
+- Open the same reusable customer order form.
+- Automatically display the three selected pickle varieties.
+- Display existing combo weight and quantity information.
+- Allow the customer to enter their name, phone number, delivery address and additional notes.
+
+### Combo Add to Bag
+
+When the customer clicks Add to Bag:
+
+- Add the selected combo as one bag item.
+- Preserve all three selected pickle varieties.
+- Update the floating bag counter.
+- Display the combo details inside the shopping bag.
+
+Do not create a separate customer form for combos.
+
+## 7. AUTOMATIC UNIQUE ORDER ID GENERATION
+
+Automatically generate a unique Order ID when the customer successfully submits the frontend order form.
+
+### Order ID Format
+
+Use:
+
+ACH-YYYY-XXXXXXXX
+
+Examples:
+
+- ACH-2026-A7F29C81
+- ACH-2026-B82D4F19
+- ACH-2026-C91E6A32
+
+Requirements:
+
+- Use the current year automatically.
+- Use the browser's secure crypto.randomUUID() API to generate the random identifier.
+- Format the identifier as an eight-character uppercase alphanumeric segment.
+- Use a sufficiently large random space and check against existing locally stored IDs to minimize collisions.
+- Do not use Math.random() or timestamps alone.
+- Generate a new Order ID for each new valid submission.
+- Do not generate another Order ID when the same confirmation popup is reopened.
+- Prevent duplicate order creation from double-clicking Submit.
+- Use one Order ID for a shopping bag checkout containing multiple products.
+- Use one Order ID for each Pick Any Three combo order.
+
+This is frontend-only ID generation. It does not guarantee globally unique IDs across all customer browsers.
+
+## 8. ORDER CONFIRMATION POPUP
+
+After successful frontend submission, display a professional confirmation popup.
+
+Heading:
+
+"Order Details Recorded"
+
+Display:
+
+- Unique Order ID
+- Customer Name
+- Phone Number
+- Selected Pickles / Combo
+- Selected Weight
+- Quantity
+- Order Date
+
+Add:
+
+- Copy Order ID button
+- Close button
+
+Display the following message clearly:
+
+"Your order details have been saved in this browser. Your order has not yet been sent to Achar & Co."
+
+Do not display "Order Placed Successfully" or claim that the business has received the order.
+
+## 9. FRONTEND ORDER STORAGE
+
+Use localStorage to store submitted order information for frontend demonstration.
+
+Store each order as a structured JavaScript object containing:
+
+
+
+- customerName
+- phoneNumber
+- deliveryAddress
+- products
+- weight
+- quantity
+- comboDetails, if applicable
+- additionalNotes
+- orderDate
+
+Store order records separately from shopping bag data.
+
+Requirements:
+
+- Keep each submitted order associated with its generated Order ID.
+- Avoid duplicate submissions.
+- Keep local order records after page refresh.
+- Do not store sensitive customer information in URLs.
+- Do not send order data to any external service.
+- Clearly document that localStorage is browser-local, is not secure central order storage, and may be cleared by the user.
+- Do not treat locally stored orders as confirmed business orders.
+
+## 10. HEADER — TRACK ORDER BUTTON
+
+Find the existing website header containing the WhatsApp Order button.
+
+Add a new button:
+
+"Track Order"
+
+Keep the existing header design and responsiveness.
+
+Clicking Track Order should open a tracking page or popup.
+
+### Tracking Form
+
+Fields:
+
+- Order ID
+- Registered Phone Number
+
+Button:
+
+"Track Order"
+
+### Frontend Tracking Behavior
+
+- Search locally stored orders for a matching Order ID and phone number.
+- If a matching order is found, display its locally saved order summary.
+- Show the order date and selected products.
+- Clearly label the result as a local order record, not a live delivery status.
+- If no matching order exists, display:
+
+"No matching order was found in this browser."
+
+- Do not fabricate shipping statuses or delivery dates.
+- Display "Live order tracking will be available soon" where appropriate.
+
+Do not create tracking APIs or backend integrations.
+
+## 11. REUSABLE FORM COMPONENT
+
+Create one shared customer order form.
+
+Use the same form for:
+
+1. Individual Pickle — Order Now
+2. Shopping Bag — Order Now
+3. Pick Any Three Combo — Order Now
+
+The customer information fields must always remain the same.
+
+Only the order details should change dynamically based on the selected products.
+
+Use one shared Order ID generation function for all three ordering methods.
+
+Avoid duplicate form code.
+
+## 12. DESIGN AND ANIMATIONS
+
+Preserve the existing Achar & Co. visual identity.
+
+Add tasteful frontend interactions:
+
+- Smooth Order Now popup animation.
+- Elegant form styling.
+- Floating shopping bag button.
+- Animated bag item counter.
+- Smooth shopping bag drawer.
+- Attractive weight selector.
+- Clean order confirmation popup.
+- Copy Order ID interaction.
+- Responsive Track Order popup.
+- Subtle hover effects.
+- Mobile-friendly controls.
+
+Do not change the existing website structure or unrelated pages.
+
+## 13. FRONTEND TESTING
+
+Test the following journeys.
+
+### Individual Pickle
+
+Product → Select Weight → Order Now → Customer Form → Submit → Generate Order ID → Confirmation Popup.
+
+### Shopping Bag
+
+Product → Add to Bag → Floating Bag → View Items → Order Now → Customer Form → Submit → Generate One Order ID.
+
+### Pick Any Three Combo
+
+Select Three Pickles → Order Now → Customer Form → Submit → Generate Order ID.
+
+### Track Order
+
+Track Order → Enter Order ID and Phone Number → Search Local Order Records → Display Matching Order Summary.
+
+Also verify:
+
+- All product cards have correct button labels.
+- Weight selection works up to 3 KG.
+- Shopping bag item count updates.
+- Bag contents persist after refresh.
+- Customer form validation works.
+- Each new order generates a different ID.
+- Duplicate submissions are prevented.
+- Confirmation popup displays the correct order details.
+- Copy Order ID works.
+- Track Order searches locally saved orders.
+- No backend or API requests are made.
+- Existing design remains unchanged.
+- Mobile and desktop layouts work.
+- Production build completes successfully.
+
+## 14. GITHUB AND DEPLOYMENT
+
+Keep my existing GitHub repository:
+
+[https://github.com/Joel6704/achar-and-co-website](https://github.com/Joel6704/achar-and-co-website)
+
+Keep the existing Vercel frontend deployment configuration.
+
+Do not create a new repository.
+
+Do not push or deploy automatically.
+
+After completing the changes:
+
+- Run the production build.
+- Fix any frontend errors.
+- Show the list of changed files.
+- Explain the new frontend functionality.
+- Wait for my approval before pushing to GitHub.
+
+## FINAL GOAL
+
+Create a complete frontend-only ordering experience for the existing Achar & Co. website.
+
+Every pickle must support:
+
+- Order Now
+- Add to Bag
+- Weight Selection
+- Customer Details Form
+- Automatic Unique Order ID
+
+The shopping bag and Pick Any Three combo must use the same customer order form and Order ID generation system.
+
+Add a floating shopping bag, order confirmation popup and frontend-only Track Order interface.
+
+Do not create, connect or modify any backend, API, database, Supabase service or admin dashboard.
+
+Preserve the existing website design and functionality.
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-20T23:02:32+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\joelt\Downloads\achar-and-co-website\.git\COMMIT_EDITMSG (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 2
+Other open documents:
+- c:\Users\joelt\Downloads\achar-and-co-website\styles.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\vite.config.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\supabase\schema.sql (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\src\admin\pages\AdminProducts.jsx (LANGUAGE_UNSPECIFIED)
+- c:\Users\joelt\Downloads\achar-and-co-website\src\admin\pages\AdminProductEditor.jsx (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

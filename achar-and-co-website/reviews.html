@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read genuine customer reviews for Achar & Co.'s Kerala heritage pickles. Submit your own verified review with photo, and see verified testimonials from tables across Kerala.">
+  <title>Customer Reviews & Stories | Achar & Co.</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <script src="/config.js"></script>
+  <script src="/main.js"></script>
+  <script src="/frontend-bridge.js"></script>
+  <script src="/frontend-order-flow.js"></script>
+</head>
+<body>
+
+  <!-- Kerala-wide Delivery Announcement Bar -->
+  <div class="announcement-bar">
+    <span class="badge-kerala">Kerala-Wide Delivery</span>
+    <span>Authentic small-batch pickles delivered to doorsteps across all 14 districts of Kerala.</span>
+    <a href="contact.html#delivery">Check Delivery Info &rarr;</a>
+  </div>
+
+  <!-- Sticky Premium Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo" aria-label="Achar and Co. Homepage">
+        <div class="brand-symbol">a.</div>
+        <div class="brand-text">
+          <span class="brand-name">achar <span>&</span> co.</span>
+          <span class="brand-sub">Kerala Heritage Pickles</span>
+        </div>
+      </a>
+
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="services.html" class="nav-link">Services & Deliveries</a>
+        <a href="reviews.html" class="nav-link">Reviews</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="header-track-btn" id="headerTrackOrderBtn" onclick="openTrackOrderModal()" aria-label="Track Your Order">
+          <span>📦</span>
+          <span>Track Order</span>
+        </button>
+        <button class="bag-btn" id="openBagBtn" aria-label="Open Cart Bag" onclick="typeof openCart === 'function' ? openCart() : openOrderModalForBag()">
+          <span>Bag</span>
+          <span class="bag-badge" id="bagCountBadge">0</span>
+        </button>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Reviews Hero Banner -->
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <span class="eyebrow">Honest Feedback</span>
+          <h1>Customer Reviews &amp; Stories</h1>
+          <div class="brass-divider">✦ ✦ ✦</div>
+          <p>
+            We take pride in our honest, unhurried craft. Read verified reviews from customers across Kerala, or share your own dining experience with our pickles.
+          </p>
+        </div>
+
+        <!-- Authenticity Policy Notice -->
+        <div style="background: #fff; border: 1px solid var(--cream-line); border-left: 4px solid var(--green-rich); border-radius: 4px; padding: 16px 20px; max-width: 800px; margin: 0 auto 30px;">
+          <b style="color: var(--green-deep); display: block; font-size: 13px; margin-bottom: 4px;">🛡️ Our Authenticity Policy:</b>
+          <p style="font-size: 13px; color: var(--ink-muted); margin: 0; line-height: 1.6;">
+            Achar &amp; Co. strictly avoids fabricated ratings or paid testimonials. All customer submissions undergo verification of batch purchase before appearing publicly on this page.
+          </p>
+        </div>
+
+        <!-- Live Approved Reviews Grid -->
+        <div class="reviews-grid" id="allReviewsGrid">
+          <!-- Populated from config.js and localStorage -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Photos & Dining Moments -->
+    <section class="section section-cream">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 30px;">
+          <span class="eyebrow">Around The Table</span>
+          <h2>Moments Shared With Achar &amp; Co.</h2>
+          <p>Authentic Kerala meals paired with our pickles — from family lunches to festive Sadhyas.</p>
+        </div>
+
+        <div class="instagram-grid">
+          <div class="insta-item">
+            <img src="/images/mango-pickle-card.jpg" alt="Kerala Matta Rice and Cut Mango Pickle" loading="lazy">
+            <div class="insta-overlay">
+              <span>Customer Moment</span>
+              <p>Kerala Matta Rice, Moru Curry &amp; Cut Mango Pickle</p>
+            </div>
+          </div>
+          <div class="insta-item">
+            <img src="/images/garlic-pickle-card.jpg" alt="Hot Kanji and Spiced Garlic Pickle" loading="lazy">
+            <div class="insta-overlay">
+              <span>Family Meal</span>
+              <p>Hot Kanji &amp; Spiced Garlic Pickle</p>
+            </div>
+          </div>
+          <div class="insta-item">
+            <img src="/images/lemon-pickle-card.jpg" alt="Traditional Kerala Vadukapuli Lemon Pickle" loading="lazy">
+            <div class="insta-overlay">
+              <span>Sadhya Feast</span>
+              <p>Vadukapuli Lemon at wedding reception</p>
+            </div>
+          </div>
+          <div class="insta-item">
+            <img src="/images/fish-pickle-card.jpg" alt="Authentic Kerala Fish and Seafood Pickle" loading="lazy">
+            <div class="insta-overlay">
+              <span>Coastal Special</span>
+              <p>Ayala Fish Pickle with fresh appam</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Review Submission Interface (Interactive Form) -->
+    <section class="section" id="submit-review">
+      <div class="container container-narrow">
+        <div class="review-submit-box">
+          <div class="section-header" style="margin-bottom: 26px;">
+            <span class="eyebrow">Share Your Feedback</span>
+            <h2>Submit a Verified Customer Review</h2>
+            <div class="brass-divider">✦ ✦ ✦</div>
+            <p>
+              Tasted our pickles recently? Please share your thoughts. Your feedback helps fellow Kerala food lovers and helps us maintain our heirloom quality.
+            </p>
+          </div>
+
+          <form id="reviewSubmissionForm">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label for="revAuthor">Your Full Name *</label>
+                <input type="text" id="revAuthor" class="form-control" placeholder="e.g. Parvathy Nair" required>
+              </div>
+
+              <div class="form-group">
+                <label for="revLocation">Your Town / District in Kerala *</label>
+                <input type="text" id="revLocation" class="form-control" placeholder="e.g. Alappuzha, Kerala" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+              <div class="form-group">
+                <label for="revPickle">Pickle Variety Ordered *</label>
+                <select id="revPickle" class="form-control" required>
+                  <option value="Kerala Cut Mango Pickle">Kerala Cut Mango Pickle</option>
+                  <option value="Vadukapuli Naranga Pickle">Vadukapuli Naranga Pickle (Wild Lemon)</option>
+                  <option value="Kanthari Mulaku Pickle">Kanthari Mulaku Pickle (Bird's Eye Chilli)</option>
+                  <option value="Spiced Garlic Pickle">Spiced Garlic Pickle (Veluthulli)</option>
+                  <option value="Festive Inji Puli">Festive Inji Puli (Ginger Curry)</option>
+                  <option value="Kannimanga Whole Tender Mango">Kannimanga Whole Tender Mango</option>
+                  <option value="Coastal Kerala Prawn Pickle">Coastal Kerala Prawn Pickle</option>
+                  <option value="Traditional Malabar Fish Pickle">Traditional Malabar Fish Pickle</option>
+                  <option value="Custom 3-Jar Heritage Trio">Custom 3-Jar Heritage Trio</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="revRating">Rating *</label>
+                <select id="revRating" class="form-control" required>
+                  <option value="5">★★★★★ (5/5 — Outstanding Tradition)</option>
+                  <option value="4">★★★★☆ (4/5 — Very Good)</option>
+                  <option value="3">★★★☆☆ (3/5 — Good)</option>
+                  <option value="2">★★☆☆☆ (2/5 — Fair)</option>
+                  <option value="1">★☆☆☆☆ (1/5 — Needs Improvement)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="revText">Your Review &amp; Dining Notes *</label>
+              <textarea id="revText" class="form-control" rows="4" placeholder="How was the flavour balance, oil richness, and aroma? Which dish did you pair it with?" required></textarea>
+            </div>
+
+            <div style="background: var(--cream-soft); padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 12px; color: var(--ink-muted);">
+              <b>Note on Authenticity:</b> To maintain strict culinary authenticity, all customer submissions undergo verification of batch purchase before appearing publicly.
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              Submit Review For Verification &rarr;
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="brand-symbol">a.</div>
+            <div class="brand-text">
+              <span class="brand-name" style="color: #fff;">achar <span style="color: var(--gold-warm);">&amp;</span> co.</span>
+              <span class="brand-sub" style="color: var(--gold-warm);">Kerala Heritage Pickles</span>
+            </div>
+          </a>
+          <p>
+            Honouring centuries of Kerala culinary wisdom. Handcrafted in small batches with cold-pressed gingelly oil, whole rock salt, and authentic sun-curing.
+          </p>
+          <div style="font-size: 12px; color: var(--gold-warm); font-weight: 700;">
+            📍 Delivering Across All 14 Districts of Kerala
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Our Heritage</a></li>
+            <li><a href="products.html">Pickle Catalogue</a></li>
+            <li><a href="services.html">Services &amp; Deliveries</a></li>
+            <li><a href="reviews.html">Customer Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Pickles</h4>
+          <ul class="footer-links">
+            <li><a href="products.html">Cut Mango Pickle</a></li>
+            <li><a href="products.html">Vadukapuli Lemon</a></li>
+            <li><a href="products.html">Kanthari Mulaku</a></li>
+            <li><a href="products.html">Spiced Garlic</a></li>
+            <li><a href="products.html">Festive Inji Puli</a></li>
+            <li><a href="products.html">Coastal Prawn Pickle</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ordering &amp; Enquiries</h4>
+          <p style="font-size: 13px; color: #bfd0c4; margin-bottom: 14px;">
+            We take all orders directly on WhatsApp for personalized service:
+          </p>
+          <a href="https://wa.me/919876543210" class="btn btn-wa btn-sm" target="_blank" rel="noopener" style="margin-bottom: 16px;">
+            <span>💬</span> Message On WhatsApp
+          </a>
+          <div style="font-size: 12px; color: #bfd0c4;">
+            <div>Phone: <span data-config-phone>+91 98765 43210 [Configurable]</span></div>
+            <div style="margin-top: 4px;">Email: <span data-config-email>namaskaram@acharandco.com [Configurable]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; <span id="currentYear"></span> Achar &amp; Co. All rights reserved. Handcrafted in Kerala.</div>
+        <div>
+          <span>Crafted with pure spices and Kerala tradition.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="#" class="floating-wa-btn" id="floatingWhatsApp" target="_blank" rel="noopener" aria-label="Order Pickles on WhatsApp">
+    <div class="floating-wa-icon">💬</div>
+    <span>Order on WhatsApp</span>
+  </a>
+
+  <!-- Cart Drawer -->
+  <div class="drawer-backdrop" id="cartBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Bag">
+    <div class="drawer-header">
+      <h3>Your Bag <span id="drawerItemCount">(0)</span></h3>
+      <button class="drawer-close" id="closeBagBtn" aria-label="Close Bag">&times;</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-footer">
+      <div class="subtotal-row">
+        <span>Estimated Subtotal:</span>
+        <b id="cartSubtotalDisplay">₹0</b>
+      </div>
+      <button class="btn btn-wa btn-full" id="checkoutWhatsAppBtn">
+        <span>💬</span> Complete Order on WhatsApp
+      </button>
+      <small class="note">Courier charges to your Kerala district will be calculated on WhatsApp.</small>
+    </div>
+  </aside>
+
+  <!-- Page Specific Script for Customer Reviews -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+      renderApprovedReviews();
+
+      // Handle Review Submission
+      const form = document.getElementById("reviewSubmissionForm");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const author = document.getElementById("revAuthor").value.trim();
+          const location = document.getElementById("revLocation").value.trim();
+          const pickleName = document.getElementById("revPickle").value;
+          const rating = Number(document.getElementById("revRating").value);
+          const text = document.getElementById("revText").value.trim();
+
+          if (typeof addPendingReview === "function") {
+            addPendingReview({
+              author,
+              location,
+              pickleName,
+              rating,
+              text
+            });
+          }
+
+          form.reset();
+          showToast("Thank you! Your review has been submitted for verification.");
+        });
+      }
+    });
+
+    function renderApprovedReviews() {
+      const grid = document.getElementById("allReviewsGrid");
+      if (!grid || typeof getApprovedReviews !== "function") return;
+
+      const reviews = getApprovedReviews();
+      grid.innerHTML = reviews.map(r => `
+        <div class="review-card">
+          <div class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
+          <p class="review-text">“${r.text}”</p>
+          <div class="review-footer">
+            <div class="reviewer-meta">
+              <b>${r.author}</b>
+              <small>${r.location} &middot; Ordered ${r.pickleName} &middot; ${r.date}</small>
+            </div>
+            <span class="verified-tag">✓ Verified Customer</span>
+          </div>
+        </div>
+      `).join("");
+    }
+  </script>
+</body>
+</html>
+

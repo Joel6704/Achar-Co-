@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fffefb"/>
+      <stop offset="70%" stop-color="#f5efe4"/>
+      <stop offset="100%" stop-color="#eae0cf"/>
+    </radialGradient>
+    <linearGradient id="lidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8be66"/>
+      <stop offset="50%" stop-color="#c78d1f"/>
+      <stop offset="100%" stop-color="#91600c"/>
+    </linearGradient>
+    <linearGradient id="jarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8e2d5"/>
+      <stop offset="30%" stop-color="#fffefb"/>
+      <stop offset="70%" stop-color="#fdfbf7"/>
+      <stop offset="100%" stop-color="#dfd8c8"/>
+    </linearGradient>
+    <radialGradient id="shadowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(18, 40, 26, 0.28)"/>
+      <stop offset="75%" stop-color="rgba(18, 40, 26, 0.05)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle decorative circular frame -->
+  <circle cx="200" cy="195" r="145" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="6 4" opacity="0.35"/>
+  <circle cx="200" cy="195" r="160" fill="none" stroke="#12281a" stroke-width="0.5" opacity="0.15"/>
+
+  <!-- Soft Contact Drop Shadow -->
+  <ellipse cx="200" cy="335" rx="100" ry="16" fill="url(#shadowGrad)"/>
+
+  <!-- Ceramic Jar Body -->
+  <g transform="translate(0, -10)">
+    <!-- Main Jar -->
+    <path d="M 125,185 C 120,240 125,300 145,320 C 165,335 235,335 255,320 C 275,300 280,240 275,185 C 270,165 260,155 245,150 L 155,150 C 140,155 130,165 125,185 Z" fill="url(#jarGrad)" stroke="#12281a" stroke-width="2.5" stroke-opacity="0.18"/>
+
+    <!-- Traditional Clay Upper Glaze (Deep Terracotta / Brown) -->
+    <path d="M 132,175 C 130,162 142,152 155,150 L 245,150 C 258,152 270,162 268,175 C 265,195 255,205 240,210 C 220,215 180,215 160,210 C 145,205 135,195 132,175 Z" fill="#6d3926" opacity="0.9"/>
+
+    <!-- Jar Neck -->
+    <rect x="150" y="132" width="100" height="20" rx="4" fill="#54291a" stroke="#12281a" stroke-width="1.5" stroke-opacity="0.25"/>
+
+    <!-- Jar Lid (Gold/Brass Sealed) -->
+    <rect x="142" y="118" width="116" height="18" rx="5" fill="url(#lidGrad)" stroke="#7d5006" stroke-width="1.5"/>
+    <line x1="145" y1="126" x2="255" y2="126" stroke="#fff" stroke-width="1" opacity="0.6"/>
+
+    <!-- Jute String / Traditional Tie -->
+    <path d="M 148,138 Q 200,144 252,138" fill="none" stroke="#c29b38" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="200" cy="142" r="4" fill="#a67c1e"/>
+
+    <!-- Vintage Oval Label -->
+    <rect x="145" y="224" width="110" height="74" rx="8" fill="#fffdf9" stroke="#d4af37" stroke-width="1.5"/>
+    <rect x="148" y="227" width="104" height="68" rx="6" fill="none" stroke="#12281a" stroke-width="0.8" stroke-opacity="0.2"/>
+
+    <!-- Label Text -->
+    <text x="200" y="246" font-family="'Playfair Display', Georgia, serif" font-size="12" font-weight="700" fill="#12281a" text-anchor="middle" letter-spacing="1">ACHAR &amp; CO.</text>
+    <line x1="162" y1="252" x2="238" y2="252" stroke="#c1493b" stroke-width="1"/>
+    <text x="200" y="266" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="600" fill="#c78d1f" text-anchor="middle" letter-spacing="0.5">KERALA HERITAGE</text>
+    <text x="200" y="282" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" fill="#556259" text-anchor="middle">Small-Batch Jar</text>
+  </g>
+
+  <!-- Bottom Tag -->
+  <rect x="120" y="360" width="160" height="22" rx="11" fill="rgba(18, 40, 26, 0.06)"/>
+  <text x="200" y="375" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="600" fill="#12281a" text-anchor="middle" letter-spacing="0.5">✦ Fresh Kitchen Batch ✦</text>
+</svg>
+

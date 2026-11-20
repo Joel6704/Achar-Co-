@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Achar & Co.'s authentic Kerala pickle catalogue. Handcrafted mango, vadukapuli lemon, kanthari chilli, garlic, inji puli, and coastal prawn pickles. Order directly on WhatsApp.">
+  <title>Kerala Pickle Catalogue | Achar & Co.</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <script src="/config.js"></script>
+  <script src="/main.js"></script>
+  <script src="/frontend-bridge.js"></script>
+  <script src="/frontend-order-flow.js"></script>
+</head>
+<body>
+
+  <!-- Kerala-wide Delivery Announcement Bar -->
+  <div class="announcement-bar">
+    <span class="badge-kerala">Kerala-Wide Delivery</span>
+    <span>Authentic small-batch pickles delivered to doorsteps across all 14 districts of Kerala.</span>
+    <a href="contact.html#delivery">Check Delivery Info &rarr;</a>
+  </div>
+
+  <!-- Sticky Premium Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo" aria-label="Achar and Co. Homepage">
+        <div class="brand-symbol">a.</div>
+        <div class="brand-text">
+          <span class="brand-name">achar <span>&</span> co.</span>
+          <span class="brand-sub">Kerala Heritage Pickles</span>
+        </div>
+      </a>
+
+      <nav class="main-navigation" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="products.html" class="nav-link active">Products</a>
+        <a href="services.html" class="nav-link">Services & Deliveries</a>
+        <a href="reviews.html" class="nav-link">Reviews</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="header-track-btn" id="headerTrackOrderBtn" onclick="openTrackOrderModal()" aria-label="Track Your Order">
+          <span>📦</span>
+          <span>Track Order</span>
+        </button>
+        <button class="bag-btn" id="openBagBtn" aria-label="Open Cart Bag" onclick="typeof openCart === 'function' ? openCart() : openOrderModalForBag()">
+          <span>Bag</span>
+          <span class="bag-badge" id="bagCountBadge">0</span>
+        </button>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Catalogue Header & Products Grid -->
+    <section class="catalogue-section">
+      <div class="container">
+        <div class="section-header text-center" style="margin-bottom: 24px;">
+          <span class="eyebrow">THE COMPLETE HERITAGE LINEUP</span>
+          <h1>Our pickles, jar by jar.</h1>
+          <div class="brass-divider" aria-hidden="true">✦ ✦ ✦</div>
+          <p>
+            Handcrafted in small batches with pure cold-pressed gingelly oil, rock salt, and stone-ground spices. Select your preferred flavour or enquire for custom small-batch varieties.
+          </p>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="product-filters">
+          <div class="filter-buttons" id="catalogueFilterBtns">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Vegetarian">Vegetarian</button>
+            <button class="filter-btn" data-filter="Meat">Meat</button>
+            <button class="filter-btn" data-filter="Seafood">Seafood</button>
+          </div>
+
+          <div class="search-sort-box">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="search" id="catalogueSearchInput" placeholder="Search by name, Kadumanga, Nellikka, Beef..." aria-label="Search pickles">
+            </div>
+
+            <select id="catalogueSortSelect" class="sort-select" aria-label="Sort products">
+              <option value="default">Default Order</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name">Alphabetical</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Business Owner Note on Configurable Prices -->
+        <div style="background: var(--cream-soft); border-left: 3px solid var(--gold-turmeric); padding: 10px 16px; margin-bottom: 30px; font-size: 12px; color: var(--ink-muted); border-radius: 4px;">
+          <b style="color: var(--green-deep);">💡 Business Owner Note:</b> Pack sizes (250g, 500g, 1kg) and prices are fully configurable in <code style="background: #fff; padding: 2px 5px; border-radius: 3px; font-size: 11px;">config.js</code>. All WhatsApp links automatically update with your live pricing and selected pack size.
+        </div>
+
+        <!-- Products Grid Container -->
+        <div class="products-grid" id="catalogueGrid">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="noResultsMsg" style="display: none; text-align: center; padding: 60px 20px; color: var(--ink-light);">
+          <div style="font-size: 38px; margin-bottom: 12px;">🌿</div>
+          <h3 style="font-family: var(--font-serif); color: var(--green-deep); margin-bottom: 8px;">No matching pickles found</h3>
+          <p style="font-size: 14px;">Try clearing your search term or selecting "All Flavours".</p>
+          <button class="btn btn-outline btn-sm" onclick="resetFilters()" style="margin-top: 14px;">Show All Pickles</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILD YOUR OWN COMBO: Custom 3-Jar Pickle Trio -->
+    <section class="section section-cream combo-builder-section" id="combo-builder" aria-labelledby="comboBuilderHeading">
+      <div class="container">
+        <div class="section-header text-center" style="margin-bottom: 32px;">
+          <span class="eyebrow">Build your own</span>
+          <h2 id="comboBuilderHeading">Pick any three jars</h2>
+          <div class="brass-divider" aria-hidden="true">✦ ✦ ✦</div>
+          <p style="max-width: 620px; margin: 0 auto; font-size: 16px;">
+            Choose three different pickles to make your own trio.
+          </p>
+          <div class="combo-status-badge" id="comboStatusBadge" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="comboCountText">0 of 3 jars selected</span>
+          </div>
+        </div>
+
+        <div class="combo-builder-grid">
+          <!-- Left Column: Selectable Jar Cards Grid -->
+          <div class="combo-jars-area">
+            <div class="combo-jars-header">
+              <h3 class="combo-area-title">Select 3 Flavours</h3>
+              <span class="combo-area-sub">250g heirloom jars &middot; Tap to choose or remove</span>
+            </div>
+
+            <div class="combo-jars-grid" id="comboJarsGrid" role="group" aria-label="Available pickles for combo trio">
+              <!-- Dynamically populated from eligible products -->
+            </div>
+          </div>
+
+          <!-- Right Column (Sticky on Desktop): Your Combo Summary Card -->
+          <aside class="combo-summary-col">
+            <div class="combo-summary-card" id="comboSummaryCard">
+              <div class="combo-summary-header">
+                <span class="summary-eyebrow">HERITAGE CURATION</span>
+                <h3 class="summary-title">Your Combo</h3>
+                <p class="summary-desc">3 &times; 250g handcrafted jars in a presentation gift box</p>
+              </div>
+
+              <!-- 3 Selected Jar Slots -->
+              <div class="combo-slots-list" id="comboSlotsContainer">
+                <!-- Dynamically rendered slots (1, 2, 3) -->
+              </div>
+
+              <!-- Pricing Breakdown -->
+              <div class="combo-pricing-breakdown">
+                <div class="pricing-row">
+                  <span>Selected Jars (3 &times; 250g)</span>
+                  <span id="comboOriginalPrice">₹0</span>
+                </div>
+                <div class="pricing-row" id="comboDiscountRow" style="display: none; color: var(--green-rich);">
+                  <span>Heritage Trio Savings</span>
+                  <span id="comboSavingsAmount">-₹0</span>
+                </div>
+                <div class="pricing-row packaging-row">
+                  <span>Heritage Box &amp; Custom Note</span>
+                  <span class="free-tag">Complimentary</span>
+                </div>
+                <div class="pricing-divider"></div>
+                <div class="pricing-row total-row">
+                  <span class="total-label">Total Amount</span>
+                  <span class="total-val" id="comboTotalDisplay">₹0</span>
+                </div>
+              </div>
+
+              <!-- Action Stack -->
+              <div class="combo-action-stack">
+                <button type="button" class="btn btn-primary btn-full combo-order-btn" id="btnOrderComboWA" disabled onclick="openOrderModalForCombo()">
+                  <span>Order Now</span>
+                </button>
+                <button type="button" class="btn btn-outline btn-full combo-bag-btn" id="btnAddComboToCart" disabled onclick="addComboToBag()" style="margin-top: 8px;">
+                  <span id="btnAddComboText">Add Trio to Bag (0/3)</span>
+                </button>
+              </div>
+
+              <div class="combo-guarantee-note">
+                <small>🌿 Sun-cured &middot; Cold-pressed gingelly oil &middot; Kerala-wide delivery</small>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Premium Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo" style="margin-bottom: 12px;">
+            <div class="brand-symbol">a.</div>
+            <div class="brand-text">
+              <span class="brand-name" style="color: #fff;">achar <span style="color: var(--gold-warm);">&amp;</span> co.</span>
+              <span class="brand-sub" style="color: var(--gold-warm);">Kerala Heritage Pickles</span>
+            </div>
+          </a>
+          <p>
+            Honouring centuries of Kerala culinary wisdom. Handcrafted in small batches with cold-pressed gingelly oil, whole rock salt, and authentic sun-curing.
+          </p>
+          <div style="font-size: 12px; color: var(--gold-warm); font-weight: 700;">
+            📍 Delivering Across All 14 Districts of Kerala
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Our Heritage</a></li>
+            <li><a href="products.html">Pickle Catalogue</a></li>
+            <li><a href="services.html">Services &amp; Deliveries</a></li>
+            <li><a href="reviews.html">Customer Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Pickles</h4>
+          <ul class="footer-links">
+            <li><a href="products.html">Cut Mango Pickle</a></li>
+            <li><a href="products.html">Vadukapuli Lemon</a></li>
+            <li><a href="products.html">Kanthari Mulaku</a></li>
+            <li><a href="products.html">Spiced Garlic</a></li>
+            <li><a href="products.html">Festive Inji Puli</a></li>
+            <li><a href="products.html">Coastal Prawn Pickle</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ordering &amp; Enquiries</h4>
+          <p style="font-size: 13px; color: #bfd0c4; margin-bottom: 14px;">
+            We take all orders directly on WhatsApp for personalized service:
+          </p>
+          <a href="https://wa.me/919876543210" class="btn btn-wa btn-sm" target="_blank" rel="noopener" style="margin-bottom: 16px;">
+            <span>💬</span> Message On WhatsApp
+          </a>
+          <div style="font-size: 12px; color: #bfd0c4;">
+            <div>Phone: <span data-config-phone>+91 98765 43210 [Configurable]</span></div>
+            <div style="margin-top: 4px;">Email: <span data-config-email>namaskaram@acharandco.com [Configurable]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; <span id="currentYear"></span> Achar &amp; Co. All rights reserved. Handcrafted in Kerala.</div>
+        <div>
+          <span>Crafted with pure spices and Kerala tradition.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="#" class="floating-wa-btn" id="floatingWhatsApp" target="_blank" rel="noopener" aria-label="Order Pickles on WhatsApp">
+    <div class="floating-wa-icon">💬</div>
+    <span>Order on WhatsApp</span>
+  </a>
+
+  <!-- Cart Drawer -->
+  <div class="drawer-backdrop" id="cartBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Bag">
+    <div class="drawer-header">
+      <h3>Your Bag <span id="drawerItemCount">(0)</span></h3>
+      <button class="drawer-close" id="closeBagBtn" aria-label="Close Bag">&times;</button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-footer">
+      <div class="subtotal-row">
+        <span>Estimated Subtotal:</span>
+        <b id="cartSubtotalDisplay">₹0</b>
+      </div>
+      <button class="btn btn-wa btn-full" id="checkoutWhatsAppBtn">
+        <span>💬</span> Complete Order on WhatsApp
+      </button>
+      <small class="note">Courier charges to your Kerala district will be calculated on WhatsApp.</small>
+    </div>
+  </aside>
+
+  <!-- Quick View Product Modal -->
+  <div class="modal-backdrop" id="quickViewModal">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" onclick="closeQuickView()" aria-label="Close modal">&times;</button>
+      <div id="quickViewContent"></div>
+    </div>
+  </div>
+
+  <!-- Page Specific Script for Products Catalogue -->
+  <script>
+    let activeFilter = "All";
+    let searchQuery = "";
+    let sortMethod = "default";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+      renderCatalogue();
+      initComboBuilder();
+
+      // Category filter clicks
+      document.querySelectorAll("#catalogueFilterBtns .filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#catalogueFilterBtns .filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeFilter = btn.dataset.filter;
+          renderCatalogue();
+        });
+      });
+
+      // Search input
+      const searchInput = document.getElementById("catalogueSearchInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          searchQuery = e.target.value.toLowerCase().trim();
+          renderCatalogue();
+        });
+      }
+
+      // Sort select
+      const sortSelect = document.getElementById("catalogueSortSelect");
+      if (sortSelect) {
+        sortSelect.addEventListener("change", (e) => {
+          sortMethod = e.target.value;
+          renderCatalogue();
+        });
+      }
+    });
+
+    function resetFilters() {
+      activeFilter = "All";
+      searchQuery = "";
+      sortMethod = "default";
+      document.querySelectorAll("#catalogueFilterBtns .filter-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.filter === "All");
+      });
+      const searchInput = document.getElementById("catalogueSearchInput");
+      if (searchInput) searchInput.value = "";
+      const sortSelect = document.getElementById("catalogueSortSelect");
+      if (sortSelect) sortSelect.value = "default";
+      renderCatalogue();
+    }
+
+    function renderCatalogue() {
+      const grid = document.getElementById("catalogueGrid");
+      const noResults = document.getElementById("noResultsMsg");
+      if (!grid || typeof ACHAR_CONFIG === "undefined") return;
+
+      let list = ACHAR_CONFIG.products.filter(p => {
+        const matchesCategory = activeFilter === "All" || p.category === activeFilter;
+        const searchPool = (p.name + " " + (p.malayalamName || "") + " " + (p.shortDesc || "") + " " + (p.ingredients || "") + " " + (p.category || "")).toLowerCase();
+        const matchesSearch = !searchQuery || searchPool.includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      const getBasePrice = (p) => {
+        if (p.prices && typeof p.prices === "object" && Object.keys(p.prices).length > 0) {
+          return p.prices["250g"] || Object.values(p.prices)[0] || 0;
+        }
+        return p.regular_price || 999999;
+      };
+
+      // Sorting
+      if (sortMethod === "price-asc") {
+        list.sort((a, b) => getBasePrice(a) - getBasePrice(b));
+      } else if (sortMethod === "price-desc") {
+        list.sort((a, b) => getBasePrice(b) - getBasePrice(a));
+      } else if (sortMethod === "name") {
+        list.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = "";
+        noResults.style.display = "block";
+        return;
+      }
+
+      noResults.style.display = "none";
+      grid.innerHTML = list.map((p, idx) => {
+        const isOutOfStock = p.is_out_of_stock || p.availability_status === 'Out of Stock';
+        const hasConfirmedPricing = p.prices && typeof p.prices === 'object' && Object.keys(p.prices).length > 0;
+        const hasDiscount = hasConfirmedPricing && p.discount_price && Number(p.discount_price) < Number(p.regular_price);
+        const jarPlaceholder = '/images/pickle-jar-placeholder.svg';
+
+        let priceSectionHtml = '';
+        let actionButtonsHtml = '';
+
+        const weightOptions = (typeof ACHAR_CONFIG !== 'undefined' && ACHAR_CONFIG.weightOptions)
+          ? ACHAR_CONFIG.weightOptions 
+          : ["250 g", "500 g", "1 KG", "1.5 KG", "2 KG", "2.5 KG", "3 KG"];
+
+        if (hasConfirmedPricing) {
+          const startingPrice = p.prices["250g"] || Object.values(p.prices)[0];
+          priceSectionHtml = `
+            <div class="size-price-row">
+              <div>
+                <label for="sizeSelect-${p.id}" style="font-size: 11px; display: block; color: var(--ink-light); margin-bottom: 2px;">Select Weight:</label>
+                <select id="sizeSelect-${p.id}" class="size-selector" onchange="updateCardPrice('${p.id}', this.value)" ${isOutOfStock ? 'disabled' : ''}>
+                  ${weightOptions.map(sz => `<option value="${sz}">${sz}</option>`).join("")}
+                </select>
+              </div>
+              <div class="price-display">
+                <div>
+                  ${hasDiscount ? `<span class="price-regular-strike">₹${p.regular_price}</span>` : ''}
+                  <span class="price-amount" id="priceDisplay-${p.id}">₹${startingPrice}</span>
+                </div>
+                <span class="price-note">${isOutOfStock ? 'Temporarily Unavailable' : 'Ready to Order'}</span>
+              </div>
+            </div>
+          `;
+          actionButtonsHtml = `
+            <div class="product-actions">
+              <button class="btn btn-primary btn-order-now ${isOutOfStock ? 'disabled' : ''}" onclick="openOrderModalForProduct('${p.id}')" ${isOutOfStock ? 'disabled' : ''}>
+                ${isOutOfStock ? 'Out of Stock' : 'Order Now'}
+              </button>
+              <button class="btn-quick-view" onclick="openQuickView('${p.id}')" title="Ingredients, allergens and storage details">
+                View Details
+              </button>
+            </div>
+            <button class="btn btn-outline btn-sm btn-full btn-add-bag ${isOutOfStock ? 'disabled' : ''}" style="margin-top: 8px; padding: 7px 10px; font-size: 11px;" onclick="addCardToBag('${p.id}')" ${isOutOfStock ? 'disabled' : ''}>
+              ${isOutOfStock ? 'Unavailable' : 'Add to Bag +'}
+            </button>
+          `;
+        } else {
+          // Unconfirmed pack sizes / seasonal varieties (do not calculate fictional prices)
+          priceSectionHtml = `
+            <div class="size-price-row unconfirmed-price-row" style="background: rgba(199, 141, 31, 0.08); padding: 8px 10px; border-radius: 6px; border: 1px dashed var(--gold);">
+              <div>
+                <label for="sizeSelect-${p.id}" style="font-size: 11px; display: block; color: var(--gold-dark); margin-bottom: 2px; font-weight: 600; text-transform: uppercase;">Select Weight:</label>
+                <select id="sizeSelect-${p.id}" class="size-selector" ${isOutOfStock ? 'disabled' : ''}>
+                  ${weightOptions.map(sz => `<option value="${sz}">${sz}</option>`).join("")}
+                </select>
+              </div>
+              <div class="price-display" style="text-align: right;">
+                <span class="price-amount" id="priceDisplay-${p.id}" style="font-size: 13px; font-family: var(--font-body); color: var(--terracotta); font-weight: 600;">Custom Batch</span>
+                <span class="price-note">Seasonal · Price on request</span>
+              </div>
+            </div>
+          `;
+          actionButtonsHtml = `
+            <div class="product-actions">
+              <button class="btn btn-primary btn-order-now ${isOutOfStock ? 'disabled' : ''}" onclick="openOrderModalForProduct('${p.id}')" ${isOutOfStock ? 'disabled' : ''}>
+                ${isOutOfStock ? 'Out of Stock' : 'Order Now'}
+              </button>
+              <button class="btn-quick-view" onclick="openQuickView('${p.id}')" title="Ingredients, allergens and storage details">
+                View Details
+              </button>
+            </div>
+            <button class="btn btn-outline btn-sm btn-full btn-add-bag ${isOutOfStock ? 'disabled' : ''}" style="margin-top: 8px; padding: 7px 10px; font-size: 11px;" onclick="addCardToBag('${p.id}')" ${isOutOfStock ? 'disabled' : ''}>
+              ${isOutOfStock ? 'Unavailable' : 'Add to Bag +'}
+            </button>
+          `;
+        }
+
+        return `
+        <div class="product-card ${isOutOfStock ? 'is-out-of-stock' : ''}" style="animation-delay: ${(idx % 6) * 0.08}s;">
+          <div class="product-image-container">
+            <img src="${p.image || jarPlaceholder}" alt="${p.name}" loading="lazy" onerror="this.src='${jarPlaceholder}'">
+            <span class="product-badge ${isOutOfStock ? 'out-of-stock' : ''}">
+              ${isOutOfStock ? 'OUT OF STOCK' : (p.badge || 'Small Batch')}
+            </span>
+            <span class="product-category-tag">${p.category}</span>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">${p.name}</h3>
+            <p class="product-malayalam">${p.malayalamName || ''}</p>
+            <p class="product-desc">${p.shortDesc || ''}</p>
+            
+            <div class="product-controls">
+              ${priceSectionHtml}
+              ${actionButtonsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+      }).join("");
+    }
+
+    function updateCardPrice(productId, size) {
+      const product = ACHAR_CONFIG.products.find(p => p.id === productId || p.slug === productId);
+      if (!product) return;
+      const priceEl = document.getElementById(`priceDisplay-${productId}`);
+      if (!priceEl) return;
+      const price = typeof ACHAR_CONFIG.getPriceForWeight === "function" 
+        ? ACHAR_CONFIG.getPriceForWeight(product, size) 
+        : (product.prices ? product.prices[size] : null);
+      if (price !== null) {
+        priceEl.textContent = `₹${Number(price).toLocaleString("en-IN")}`;
+      } else {
+        priceEl.textContent = "Custom Batch";
+      }
+    }
+
+    function addCardToBag(productId) {
+      if (typeof window.addCardToBag === "function") {
+        window.addCardToBag(productId);
+      } else {
+        const select = document.getElementById(`sizeSelect-${productId}`);
+        const size = select ? select.value : "250 g";
+        addToCart(productId, size);
+      }
+    }
+
+    /* ==========================================================================
+       BUILD YOUR OWN COMBO: Custom 3-Jar Pickle Trio Logic
+       ========================================================================== */
+    let selectedComboIds = [];
+
+    function initComboBuilder() {
+      const grid = document.getElementById("comboJarsGrid");
+      if (!grid || typeof ACHAR_CONFIG === "undefined") return;
+
+      // Filter eligible products: must have confirmed 250g price and not be out of stock
+      // Confirmed list includes Mango, Chicken, Lemon, Beef, Tender Mango, Garlic, Mixed Veg, Ginger, Fish, Prawn
+      const eligible = ACHAR_CONFIG.products.filter(p => {
+        return p.prices && typeof p.prices === "object" && p.prices["250g"] !== undefined && !p.is_out_of_stock;
+      });
+
+      grid.innerHTML = eligible.map(p => {
+        const price = p.prices["250g"];
+        return `
+          <div class="combo-jar-card" 
+               id="comboCard-${p.id}" 
+               data-id="${p.id}"
+               role="checkbox" 
+               tabindex="0" 
+               aria-checked="false" 
+               aria-label="${p.name}, 250g jar, ₹${price}" 
+               onclick="toggleComboJar('${p.id}')"
+               onkeydown="handleComboJarKeyDown(event, '${p.id}')">
+            <span class="combo-jar-check" aria-hidden="true">✓</span>
+            <div class="combo-jar-card-img-wrap">
+              <img src="${p.image || '/images/pickle-jar-placeholder.svg'}" alt="${p.name}" loading="lazy" onerror="this.src='/images/pickle-jar-placeholder.svg'">
+            </div>
+            <div class="combo-jar-card-body">
+              <h4 class="combo-jar-title">${p.name}</h4>
+              <p class="combo-jar-malayalam">${p.malayalamName || ''}</p>
+              <div class="combo-jar-meta">
+                <span class="combo-jar-size">250g</span>
+                <span class="combo-jar-price">₹${price}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      updateComboUI();
+    }
+
+    function handleComboJarKeyDown(event, productId) {
+      if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+        event.preventDefault();
+        toggleComboJar(productId);
+      }
+    }
+
+    function toggleComboJar(productId) {
+      const idx = selectedComboIds.indexOf(productId);
+      if (idx >= 0) {
+        // Tapping already selected card toggles it off
+        selectedComboIds.splice(idx, 1);
+      } else {
+        // Prevent fourth selection
+        if (selectedComboIds.length >= 3) {
+          showToast("You can select up to 3 jars. Tap a selected jar or click 'Remove' in the summary to swap it.");
+          return;
+        }
+        selectedComboIds.push(productId);
+      }
+      updateComboUI();
+    }
+
+    function removeComboJar(productId) {
+      selectedComboIds = selectedComboIds.filter(id => id !== productId);
+      updateComboUI();
+    }
+
+    function updateComboUI() {
+      const count = selectedComboIds.length;
+      const badge = document.getElementById("comboStatusBadge");
+      const countText = document.getElementById("comboCountText");
+      const slotsContainer = document.getElementById("comboSlotsContainer");
+      const origPriceEl = document.getElementById("comboOriginalPrice");
+      const discountRow = document.getElementById("comboDiscountRow");
+      const savingsEl = document.getElementById("comboSavingsAmount");
+      const totalDisplay = document.getElementById("comboTotalDisplay");
+      const addCartBtn = document.getElementById("btnAddComboToCart");
+      const addCartText = document.getElementById("btnAddComboText");
+      const waBtn = document.getElementById("btnOrderComboWA");
+
+      // Update badge
+      if (badge && countText) {
+        badge.classList.toggle("is-complete", count === 3);
+        countText.textContent = count === 3 ? "3 of 3 jars selected · Trio complete!" : `${count} of 3 jars selected`;
+      }
+
+      // Update card states in the jar selection grid
+      document.querySelectorAll(".combo-jar-card").forEach(card => {
+        const id = card.dataset.id;
+        const isSelected = selectedComboIds.includes(id);
+        card.classList.toggle("is-selected", isSelected);
+        card.setAttribute("aria-checked", isSelected ? "true" : "false");
+        card.classList.toggle("is-disabled-selection", !isSelected && count === 3);
+      });
+
+      // Render 3 slots
+      if (slotsContainer) {
+        let slotsHtml = "";
+        for (let i = 0; i < 3; i++) {
+          const jarId = selectedComboIds[i];
+          if (jarId) {
+            const p = ACHAR_CONFIG.products.find(prod => prod.id === jarId);
+            const price = p ? p.prices["250g"] : 0;
+            slotsHtml += `
+              <div class="combo-slot is-filled">
+                <span class="slot-num-badge">${i + 1}</span>
+                <img src="${p.image || '/images/pickle-jar-placeholder.svg'}" alt="${p.name}" class="slot-thumb" onerror="this.src='/images/pickle-jar-placeholder.svg'">
+                <div class="slot-info">
+                  <div class="slot-name">${p.name}</div>
+                  <div class="slot-meta">
+                    <span>250g</span> &middot;
+                    <span class="slot-price">₹${price}</span>
+                  </div>
+                </div>
+                <button type="button" class="slot-remove-btn" onclick="removeComboJar('${p.id}')" title="Remove ${p.name}">Remove</button>
+              </div>
+            `;
+          } else {
+            slotsHtml += `
+              <div class="combo-slot is-empty">
+                <span class="slot-num-badge">${i + 1}</span>
+                <div class="slot-info">
+                  <span class="slot-empty-text">Select jar ${i + 1} from the list</span>
+                </div>
+              </div>
+            `;
+          }
+        }
+        slotsContainer.innerHTML = slotsHtml;
+      }
+
+      // Calculate running total
+      const originalSubtotal = selectedComboIds.reduce((sum, id) => {
+        const p = ACHAR_CONFIG.products.find(prod => prod.id === id);
+        return sum + (p && p.prices && p.prices["250g"] ? p.prices["250g"] : 0);
+      }, 0);
+
+      // Check for configured combo discount
+      let discount = 0;
+      if (ACHAR_CONFIG.comboDiscountPercent) {
+        discount = Math.round(originalSubtotal * (ACHAR_CONFIG.comboDiscountPercent / 100));
+      } else if (ACHAR_CONFIG.comboDiscountFixed) {
+        discount = ACHAR_CONFIG.comboDiscountFixed;
+      }
+
+      const finalTotal = Math.max(0, originalSubtotal - discount);
+
+      if (origPriceEl) origPriceEl.textContent = `₹${originalSubtotal.toLocaleString("en-IN")}`;
+
+      if (discountRow && savingsEl) {
+        if (discount > 0 && count === 3) {
+          discountRow.style.display = "flex";
+          savingsEl.textContent = `-₹${discount.toLocaleString("en-IN")}`;
+        } else {
+          discountRow.style.display = "none";
+        }
+      }
+
+      if (totalDisplay) {
+        totalDisplay.textContent = `₹${finalTotal.toLocaleString("en-IN")}`;
+      }
+
+      // Update button states
+      const isComplete = count === 3;
+      if (addCartBtn) {
+        addCartBtn.disabled = !isComplete;
+        if (addCartText) {
+          addCartText.textContent = isComplete ? `Add Trio to Bag · ₹${finalTotal.toLocaleString("en-IN")}` : `Add Combo to Cart (${count}/3)`;
+        }
+      }
+
+      if (waBtn) {
+        waBtn.disabled = !isComplete;
+      }
+    }
+
+    function addComboToCart() {
+      if (selectedComboIds.length !== 3) {
+        showToast("Please choose 3 jars to complete your trio.");
+        return;
+      }
+
+      const selectedProds = selectedComboIds.map(id => ACHAR_CONFIG.products.find(p => p.id === id)).filter(Boolean);
+      const namesList = selectedProds.map(p => p.name).join(" + ");
+      const originalSubtotal = selectedProds.reduce((sum, p) => sum + (p.prices["250g"] || 0), 0);
+      let discount = 0;
+      if (ACHAR_CONFIG.comboDiscountPercent) {
+        discount = Math.round(originalSubtotal * (ACHAR_CONFIG.comboDiscountPercent / 100));
+      } else if (ACHAR_CONFIG.comboDiscountFixed) {
+        discount = ACHAR_CONFIG.comboDiscountFixed;
+      }
+      const finalTotal = Math.max(0, originalSubtotal - discount);
+
+      const comboKey = `combo_${Date.now()}`;
+      ACHAR_CART.push({
+        key: comboKey,
+        id: "custom-trio",
+        name: "Custom 3-Jar Heritage Trio (3x 250g)",
+        size: namesList,
+        price: finalTotal,
+        qty: 1,
+        image: selectedProds[0]?.image || "/images/mango-pickle-card.jpg"
+      });
+
+      saveCart();
+      renderCartItems();
+      updateCartBadge();
+      openBag();
+      showToast("Custom 3-Jar Heritage Trio added to your bag!");
+    }
+
+    function orderComboOnWhatsApp() {
+      if (selectedComboIds.length !== 3) {
+        showToast("Please choose 3 jars to complete your trio.");
+        return;
+      }
+
+      const selectedProds = selectedComboIds.map(id => ACHAR_CONFIG.products.find(p => p.id === id)).filter(Boolean);
+      const originalSubtotal = selectedProds.reduce((sum, p) => sum + (p.prices["250g"] || 0), 0);
+      let discount = 0;
+      if (ACHAR_CONFIG.comboDiscountPercent) {
+        discount = Math.round(originalSubtotal * (ACHAR_CONFIG.comboDiscountPercent / 100));
+      } else if (ACHAR_CONFIG.comboDiscountFixed) {
+        discount = ACHAR_CONFIG.comboDiscountFixed;
+      }
+      const finalTotal = Math.max(0, originalSubtotal - discount);
+
+      const jarLines = selectedProds.map((p, i) => `• Jar ${i + 1}: *${p.name}* (250g) - ₹${p.prices["250g"]}`).join("\n");
+      const discountLine = discount > 0 ? `\n• Combo Savings: -₹${discount.toLocaleString("en-IN")}` : "";
+
+      const msg = `Namaskaram Achar & Co.! 🌶️\n\nI would like to order a Custom 3-Jar Pickle Trio:\n${jarLines}${discountLine}\n• Packaging: Complimentary Heritage Gift Box\n• Final Total: *₹${finalTotal.toLocaleString("en-IN")}*\n\nPlease let me know dispatch timeframe and UPI payment details. Thank you!`;
+
+      const url = ACHAR_CONFIG.getWhatsAppUrl(msg);
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
+
